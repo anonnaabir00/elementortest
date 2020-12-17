@@ -111,13 +111,29 @@ class Hello_World extends Widget_Base {
 				'type' => Controls_Manager::TEXT,
 			]
 		);
-
+		$this->add_control(
+			'alignment',
+			[
+				'label' => __( 'Alignment', 'elementor-hello-world' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'left',
+				'options' => [
+					
+					'left' => __( 'Left', 'elementor-hello-world' ),
+					'right' => __( 'Right', 'elementor-hello-world' ),
+					'center' => __( 'Center', 'elementor-hello-world' ),
+				],
+				'selectors' => [
+					'{{WRAPPER}} .title' => 'text-transform: {{VALUE}};',
+				],
+			]
+		);
 		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'section_style',
 			[
-				'label' => __( 'Style', 'elementor-hello-world' ),
+				'label' => __( 'Transform', 'elementor-hello-world' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -126,8 +142,8 @@ class Hello_World extends Widget_Base {
 			'text_transform',
 			[
 				'label' => __( 'Text Transform', 'elementor-hello-world' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => '',
+				'type' => \Elementor\Controls_Manager::TAB_STYLE,
+				'default' => 'capitalize',
 				'options' => [
 					'' => __( 'None', 'elementor-hello-world' ),
 					'uppercase' => __( 'UPPERCASE', 'elementor-hello-world' ),
@@ -145,7 +161,7 @@ class Hello_World extends Widget_Base {
 			'content_section',
 			[
 				'label' => __( 'Font', 'plugin-name' ),
-				'tab' => \Elementor\Controls_Manager::TAB_STYLE
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -167,7 +183,7 @@ class Hello_World extends Widget_Base {
 	/**
 	 * Render the widget output on the frontend.
 	 *
-	 * Written in PHP and used to generate the final HTML.
+	 * Written in PHP and used to generate the final HTML."
 	 *
 	 * @since 1.0.0
 	 *
@@ -175,12 +191,10 @@ class Hello_World extends Widget_Base {
 	 */
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-
-		echo '<div class="title">';
-		echo $settings['title'];
-        echo '</div>';
-        $settings = $this->get_settings_for_display();
-		echo '<h2 class="title" style="font-family: ' . $settings['font_family'] . '"> .. </h2>';
+		$heading = $settings['title'];
+		$alignment = $settings['alignment'];
+		
+		echo "<h1 style='text-align:".esc_attr($alignment)."'>".esc_html($heading)."</h1>";
 	}
 
 	/**
@@ -193,13 +207,6 @@ class Hello_World extends Widget_Base {
 	 * @access protected
 	 */
 	protected function _content_template() {
-		?>
-		<div class="title">
-			{{{ settings.title }}}
-		</div>
-		<?php
-        ?>
-		<h2 class="title" style="font-family: {{ settings.font_family }}"> .. </h2>
-		<?php
+		
 	}
 }
