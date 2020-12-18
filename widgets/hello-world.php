@@ -38,7 +38,7 @@ class Hello_World extends Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Text', 'elementor-hello-world' );
+		return __( 'Hello World', 'elementor-hello-world' );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Hello_World extends Widget_Base {
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'fa fa-text-width';
+		return 'eicon-posts-ticker';
 	}
 
 	/**
@@ -111,29 +111,14 @@ class Hello_World extends Widget_Base {
 				'type' => Controls_Manager::TEXT,
 			]
 		);
-		$this->add_control(
-			'alignment',
-			[
-				'label' => __( 'Alignment', 'elementor-hello-world' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'left',
-				'options' => [
-					
-					'left' => __( 'Left', 'elementor-hello-world' ),
-					'right' => __( 'Right', 'elementor-hello-world' ),
-					'center' => __( 'Center', 'elementor-hello-world' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .title' => 'text-transform: {{VALUE}};',
-				],
-			]
-		);
+
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'section_style',
 			[
-				'label' => __( 'Transform', 'elementor-hello-world' ),
+				'label' => __( 'Style', 'elementor-hello-world' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -142,8 +127,8 @@ class Hello_World extends Widget_Base {
 			'text_transform',
 			[
 				'label' => __( 'Text Transform', 'elementor-hello-world' ),
-				'type' => \Elementor\Controls_Manager::TAB_STYLE,
-				'default' => 'capitalize',
+				'type' => Controls_Manager::SELECT,
+				'default' => '',
 				'options' => [
 					'' => __( 'None', 'elementor-hello-world' ),
 					'uppercase' => __( 'UPPERCASE', 'elementor-hello-world' ),
@@ -156,34 +141,13 @@ class Hello_World extends Widget_Base {
 			]
 		);
 
-        $this->end_controls_section();
-        $this->start_controls_section(
-			'content_section',
-			[
-				'label' => __( 'Font', 'plugin-name' ),
-				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-			]
-		);
-
-		$this->add_control(
-			'font_family',
-			[
-				'label' => __( 'Font Family', 'plugin-domain' ),
-				'type' => \Elementor\Controls_Manager::FONT,
-				'default' => "Roboto",
-				'selectors' => [
-					'{{WRAPPER}} .title' => 'font-family: {{VALUE}}',
-				],
-			]
-		);
-
 		$this->end_controls_section();
+	}
 
-    }
 	/**
 	 * Render the widget output on the frontend.
 	 *
-	 * Written in PHP and used to generate the final HTML."
+	 * Written in PHP and used to generate the final HTML.
 	 *
 	 * @since 1.0.0
 	 *
@@ -191,10 +155,13 @@ class Hello_World extends Widget_Base {
 	 */
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$heading = $settings['title'];
-		$alignment = $settings['alignment'];
-		
-		echo "<h1 style='text-align:".esc_attr($alignment)."'>".esc_html($heading)."</h1>";
+
+		echo '<div class="title">';
+		echo $settings['title'];
+		echo '</div>';
+		echo '<a class="" href="#" style=" background-color: #4CFF69;">';
+		echo $settings['title'];
+		echo '</a>';
 	}
 
 	/**

@@ -50,6 +50,10 @@ class Plugin {
 	public function widget_scripts() {
 		wp_register_script( 'elementor-hello-world', plugins_url( '/assets/js/hello-world.js', __FILE__ ), [ 'jquery' ], false, true );
 	}
+	public function widget_style(){
+
+		wp_enqueue_script( "style-css","/widgets/style.css");
+	}
 
 	/**
 	 * Editor scripts
@@ -138,6 +142,9 @@ class Plugin {
 
 		// Register editor scripts
 		add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'editor_scripts' ] );
+
+
+		add_action( 'elementor/editor/after_enqueue_style', [ $this, 'widget_style' ] );
 		
 
 	}
